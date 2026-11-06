@@ -17,9 +17,13 @@
 
 ## Important limitations
 
-This is a static frontend prototype. It does **not** include a backend, database, real admission submission, user accounts, authentication, student records, examination results, fee payments, or administrator functions. The enquiry form does not transmit or save information. Portal dashboards and fee-record entry use fictional in-browser sample data only; nothing is sent to or stored in a school database. Receipt file selection is not uploaded.
+This remains a frontend prototype, not a production school system. The portal's forms and dashboards are interactive and save fictional demonstration records in the current browser using localStorage. They do not connect to a server or shared database, do not provide real authentication or access control, and do not upload receipt files. Different devices and browsers will not share the demo records. Never enter real student, parent, staff, financial or other confidential information.
 
 School history, leadership, exact address, contact channels, curriculum details and other institution-specific claims must be reviewed and confirmed by school management. Obtain the school's permission and any required consent before publicly publishing photographs that identify students, especially minors.
+
+## Interactive portal demonstration
+
+Open `portal.html` from the deployed site or locally. Choose Parent, Student, Teacher/Staff or Administration to explore the sample workflows. Administration can add sample students, staff, admission applications, fee records, attendance, assessment results and announcements. Parents and students can view the sample learner's records. The demo data remains in that browser until reset or cleared.
 
 ## Run locally
 
@@ -42,7 +46,10 @@ Then visit `http://localhost:8000`.
 
 - `index.html` — page structure and content.
 - `styles.css` — layout, colours and responsive styling.
-- `script.js` — mobile navigation, portal preview and demo enquiry interaction.
+- `script.js` — public website interactions and portal preview.
+- `portal.html` — interactive Arabic-first school portal.
+- `portal.css` — portal layout and responsive styling.
+- `portal.js` — sample role dashboards and management workflows.
 - `school-logo.jpg` — original school logo uploaded to the repository root.
 - `school-photo.jpg` — original school photograph uploaded to the repository root.
 
