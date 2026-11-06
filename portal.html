@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#174d35">
+  <meta name="description" content="بوابة أكاديمية الأزهر زاريا — Al-Azhar Academy interactive school portal prototype">
+  <title>بوابة أكاديمية الأزهر | Al-Azhar Academy Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Amiri:wght@400;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+  <!-- The portal is a functional front-end demonstration using browser-local sample data only. -->
+  <header class="portal-top">
+    <a class="school-mark" href="index.html"><img src="school-logo.jpg" alt="شعار أكاديمية الأزهر"><span><b>أكاديمية الأزهر – زاريا</b><small>AL-AZHAR ACADEMY, ZARIA</small></span></a>
+    <div class="top-actions"><span class="prototype-tag">نسخة تجريبية · DEMO</span><a href="index.html">الموقع الرئيسي · Main website ↗</a></div>
+  </header>
+
+  <main class="portal-shell">
+    <section id="welcomeScreen" class="welcome-panel">
+      <div class="welcome-copy">
+        <p class="eyebrow">بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيمِ</p>
+        <h1>بوابة المدرسة<br><em>School Portal</em></h1>
+        <p class="arabic-intro">عِلْمٌ نَافِعٌ، وَتَرْبِيَةٌ إِسْلَامِيَّةٌ، وَمُسْتَقْبَلٌ مُشْرِقٌ</p>
+        <p>منصة تجريبية لإدارة شؤون المدرسة ومتابعة الطلاب وأولياء الأمور والمعلمين والإدارة.</p>
+        <p class="english-intro">An interactive school management demonstration for learners, parents, teachers and school management.</p>
+      </div>
+      <div class="role-picker">
+        <div class="section-head"><div><span>اختر بوابتك</span><h2>Choose a portal</h2></div><small>اختر نوع الحساب · Select role</small></div>
+        <div class="role-grid">
+          <button class="role-card" data-enter="parent"><span class="role-icon">♧</span><b>ولي الأمر</b><small>Parent / Guardian</small></button>
+          <button class="role-card" data-enter="student"><span class="role-icon">▤</span><b>الطالب</b><small>Student</small></button>
+          <button class="role-card" data-enter="teacher"><span class="role-icon">✎</span><b>المعلم والموظف</b><small>Teacher / Staff</small></button>
+          <button class="role-card" data-enter="admin"><span class="role-icon">▦</span><b>إدارة المدرسة</b><small>Administration</small></button>
+        </div>
+        <div class="demo-note"><b>ملاحظة مهمة · IMPORTANT</b><p>هذه نسخة توضيحية ببيانات تجريبية تُحفظ في هذا المتصفح فقط. لا تستخدم بيانات طلاب حقيقية أو معلومات سرية هنا. يلزم خادم وقاعدة بيانات وتسجيل دخول آمن قبل التشغيل الفعلي.</p></div>
+      </div>
+    </section>
+
+    <section id="workspace" class="workspace hidden">
+      <aside class="sidebar">
+        <div class="sidebar-brand"><img src="school-logo.jpg" alt=""><span><b id="sideRoleAr">لوحة التحكم</b><small id="sideRoleEn">Dashboard</small></span></div>
+        <div class="profile-mini"><div class="avatar" id="profileInitial">م</div><div><b id="profileName">مستخدم تجريبي</b><small id="profileRole">Demo user</small></div></div>
+        <nav id="sideNav" class="side-nav" aria-label="Portal navigation"></nav>
+        <button id="switchRole" class="switch-role">تغيير البوابة · Switch portal</button>
+        <a class="back-site" href="index.html">← العودة للموقع · Back to website</a>
+      </aside>
+      <section class="workspace-main">
+        <div class="workspace-header"><div><p id="pageKicker">بوابة المدرسة</p><h1 id="pageTitle">لوحة التحكم</h1><small id="pageSubtitle">مرحباً بك في بوابة الأكاديمية</small></div><div class="header-user"><span class="live-dot"></span><span>وضع تجريبي · Demo mode</span></div></div>
+        <div id="viewContent" class="view-content"></div>
+      </section>
+    </section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <footer class="portal-footer"><span>أكاديمية الأزهر – زاريا · AL-AZHAR ACADEMY, ZARIA</span><span>تطوير وتصميم AU Connection Services</span></footer>
+  <script src="portal.js"></script>
+</body>
+</html>
