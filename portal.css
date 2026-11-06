@@ -44,3 +44,12 @@ td{text-align:left}
 .eyebrow [lang="ar"]{font:16px var(--arabic);letter-spacing:0}
 .arabic-intro{font:700 16px/1.8 var(--arabic);margin:10px 0;color:var(--green2)}
 .role-card small{font-size:11px}
+
+/* English-first presentation: Arabic appears only as a smaller supporting translation. */
+.side-nav button span{font-size:10px;opacity:.78}
+.sidebar-brand small,.profile-mini small{font-size:10px}
+.workspace-header small{font-size:10px}
+.welcome-banner h2{font-family:"Playfair Display",Georgia,serif;font-size:25px}
+.welcome-banner p{font-family:var(--latin);font-size:12px}
+.field label{font-family:var(--latin);font-size:11px}
+.field label [lang="ar"]{font-family:var(--arabic);font-size:10px}
