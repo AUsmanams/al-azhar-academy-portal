@@ -7,17 +7,17 @@
 ## Prototype features
 
 - Responsive public-facing school website concept.
-- School identity based on the logo supplied for this project.
+- School identity based on the original logo and photograph uploaded to the repository root.
 - School photograph supplied for this project.
 - Overview sections for Nursery, Primary and Secondary.
 - Islamic and Western education positioning.
 - Admission enquiry form with demonstration feedback only.
-- Visual preview of proposed parent, student, staff and administration portals.
+- Interactive sample dashboards for parent, student, teacher/staff and administration roles.
 - Clear placeholders for unconfirmed school information.
 
 ## Important limitations
 
-This is a static frontend prototype. It does **not** include a backend, database, real admission submission, user accounts, authentication, student records, examination results, fee payments, or administrator functions. The enquiry form does not transmit or save information. The portal preview is illustrative only.
+This is a static frontend prototype. It does **not** include a backend, database, real admission submission, user accounts, authentication, student records, examination results, fee payments, or administrator functions. The enquiry form does not transmit or save information. Portal dashboards and fee-record entry use fictional in-browser sample data only; nothing is sent to or stored in a school database. Receipt file selection is not uploaded.
 
 School history, leadership, exact address, contact channels, curriculum details and other institution-specific claims must be reviewed and confirmed by school management. Obtain the school's permission and any required consent before publicly publishing photographs that identify students, especially minors.
 
@@ -34,16 +34,16 @@ Then visit `http://localhost:8000`.
 ## Publish with GitHub Pages
 
 1. Open repository **Settings → Pages**.
-2. Under **Build and deployment**, choose **Deploy from a branch**.
-3. Select branch `main` and folder `/ (root)`, then save.
-4. Wait for the Pages deployment to complete. GitHub will show the published URL in the Pages settings.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
+3. Push changes to `main`; the workflow in `.github/workflows/pages.yml` publishes the site.
+4. Wait for the Actions workflow to complete successfully.
 
 ## Project files
 
 - `index.html` — page structure and content.
 - `styles.css` — layout, colours and responsive styling.
 - `script.js` — mobile navigation, portal preview and demo enquiry interaction.
-- `assets/school-logo.jpg` — original school logo supplied by the user.
-- `assets/school-photo.jpg` — original school photograph supplied by the user.
+- `school-logo.jpg` — original school logo uploaded to the repository root.
+- `school-photo.jpg` — original school photograph uploaded to the repository root.
 
 Code comments are included to make future edits easier. Replace placeholders only after the academy confirms the relevant information.
