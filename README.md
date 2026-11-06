@@ -21,6 +21,12 @@ This remains a frontend prototype, not a production school system. The portal's 
 
 School history, leadership, exact address, contact channels, curriculum details and other institution-specific claims must be reviewed and confirmed by school management. Obtain the school's permission and any required consent before publicly publishing photographs that identify students, especially minors.
 
+## Language and learner-account direction
+
+The public website and portal use English as the primary interface language, with Arabic retained for school identity and selected Islamic education content. The portal includes ten fictional sample learner profiles to demonstrate how individual student views can differ.
+
+See `SYSTEM-PLAN.md` for the proposed 10,000–20,000 learner architecture, user roles, result approval workflow, school-fee controls, recommended modules, production technology and management decisions required.
+
 ## Interactive portal demonstration
 
 Open `portal.html` from the deployed site or locally. Choose Parent, Student, Teacher/Staff or Administration to explore the sample workflows. Administration can add sample students, staff, admission applications, fee records, attendance, assessment results and announcements. Parents and students can view the sample learner's records. The demo data remains in that browser until reset or cleared.
