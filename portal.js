@@ -5,10 +5,10 @@ const STORE_KEY = 'alAzharPortalDemoV1';
 const $ = (selector, root=document) => root.querySelector(selector);
 const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 const roles = {
-  parent:{ar:'Parent Portal',en:'Parent / Guardian',name:'Demo Parent'},
-  student:{ar:'Student Portal',en:'Student',name:'Demo Student'},
-  teacher:{ar:'Teacher Workspace',en:'Teacher / Staff',name:'Demo Teacher'},
-  admin:{ar:'Management Dashboard',en:'School Administration',name:'Demo Administrator'}
+  parent:{ar:'بوابة ولي الأمر',en:'Parent / Guardian',name:'ولي أمر تجريبي'},
+  student:{ar:'بوابة الطالب',en:'Student Portal',name:'طالب تجريبي'},
+  teacher:{ar:'بوابة المعلم والموظف',en:'Teacher / Staff',name:'معلم تجريبي'},
+  admin:{ar:'لوحة إدارة المدرسة',en:'School Administration',name:'مدير تجريبي'}
 };
 const navigation = {
   parent:[['overview','Overview','الرئيسية'],['fees','Fees & Payments','الرسوم'],['attendance','Attendance','الحضور'],['results','Results & Progress','النتائج'],['notices','Announcements','الإعلانات']],
@@ -82,7 +82,7 @@ function enterRole(role){
   renderNavigation();renderView();
 }
 function renderNavigation(){
-  $('#sideNav').innerHTML=navigation[currentRole].map(([id,en,ar])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'">'+en+'<span>'+ar+'</span></button>').join('');
+  $('#sideNav').innerHTML=navigation[currentRole].map(([id,en,ar])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'">'+ar+'<span>'+en+'</span></button>').join('');
 }
 function goView(view){currentView=view;renderNavigation();renderView();window.scrollTo({top:0,behavior:'smooth'});}
 function stat(label,value,note){return '<article class="stat-card"><small>'+label+'</small><strong>'+value+'</strong><em>'+note+'</em></article>';}
