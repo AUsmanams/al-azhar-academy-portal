@@ -5,10 +5,10 @@
 **Status:** Proposal for discussion; not an approved school policy or production specification.
 
 ## Language and presentation
-- English is the primary interface language (target roughly 75–80%).
-- Arabic is retained for the academy's Arabic identity, Bismillah, selected Islamic learning terms, Qur'an-related areas and occasional section headings.
-- English navigation, forms, instructions, error messages and reports are the default.
-- Arabic text must use correct right-to-left direction locally, without forcing the entire page into RTL.
+- Arabic is the dominant interface language (target roughly 60–70% of visible interface copy), reflecting the academy's Islamic and Arabic-learning identity.
+- English accompanies Arabic labels, instructions, forms, error messages, reports and learning content so all families can use the system.
+- Use Arabic-first labels with concise English translations immediately alongside or below them.
+- Arabic passages and controls use correct right-to-left direction; English values and reference numbers retain left-to-right direction. Avoid forcing mixed-language values into incorrect direction.
 
 ## Individual accounts and scale
 The intended system should support individual student accounts and staff accounts, with a parent/guardian account that can be linked to one or more children. A target of 10,000–20,000 learner records is reasonable for a properly designed PHP/MySQL application on suitable hosting. Actual capacity depends on hosting CPU, RAM, database limits, storage, traffic, backups and query design; load testing is required before launch.
