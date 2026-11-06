@@ -37,3 +37,10 @@ td{text-align:left}
 .role-card b,.side-nav button,.workspace-header h1,.panel-card h3{direction:ltr}
 .role-card small,.side-nav button span{unicode-bidi:plaintext}
 .demo-note p{font:12px/1.7 var(--latin)}
+
+
+/* Keep Arabic accents visually supportive rather than competing with English headings. */
+.eyebrow{font:600 13px var(--latin);letter-spacing:.02em}
+.eyebrow [lang="ar"]{font:16px var(--arabic);letter-spacing:0}
+.arabic-intro{font:700 16px/1.8 var(--arabic);margin:10px 0;color:var(--green2)}
+.role-card small{font-size:11px}
