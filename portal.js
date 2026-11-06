@@ -5,22 +5,29 @@ const STORE_KEY = 'alAzharPortalDemoV1';
 const $ = (selector, root=document) => root.querySelector(selector);
 const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 const roles = {
-  parent:{ar:'بوابة ولي الأمر',en:'Parent / Guardian',name:'ولي أمر تجريبي'},
-  student:{ar:'بوابة الطالب',en:'Student Portal',name:'طالب تجريبي'},
-  teacher:{ar:'بوابة المعلم والموظف',en:'Teacher / Staff',name:'معلم تجريبي'},
-  admin:{ar:'إدارة المدرسة',en:'School Administration',name:'مدير النظام التجريبي'}
+  parent:{ar:'Parent Portal',en:'Parent / Guardian',name:'Demo Parent'},
+  student:{ar:'Student Portal',en:'Student',name:'Demo Student'},
+  teacher:{ar:'Teacher Workspace',en:'Teacher / Staff',name:'Demo Teacher'},
+  admin:{ar:'Management Dashboard',en:'School Administration',name:'Demo Administrator'}
 };
 const navigation = {
-  parent:[['overview','الرئيسية','Overview'],['fees','الرسوم والمدفوعات','Fees & Payments'],['attendance','الحضور والغياب','Attendance'],['results','النتائج والتقدم','Results & Progress'],['notices','الإعلانات','Announcements']],
-  student:[['overview','الرئيسية','Overview'],['timetable','جدولي الدراسي','My Timetable'],['attendance','الحضور والغياب','Attendance'],['results','النتائج','Results'],['fees','الرسوم والمدفوعات','Fees'],['notices','الإعلانات','Announcements']],
-  teacher:[['overview','الرئيسية','Overview'],['attendance','تسجيل الحضور','Take Attendance'],['students','طلابي','My Students'],['results','الدرجات والتقييم','Assessments'],['notices','الإعلانات','Announcements']],
-  admin:[['overview','لوحة الإدارة','Dashboard'],['admissions','طلبات القبول','Admissions'],['students','إدارة الطلاب','Students'],['staff','الموظفون والمعلمون','Staff'],['attendance','الحضور والغياب','Attendance'],['fees','الرسوم والمدفوعات','Fees & Payments'],['results','النتائج والتقييم','Results'],['notices','الإعلانات والتعاميم','Announcements'],['reports','التقارير','Reports'],['settings','إعدادات النظام','Settings']]
+  parent:[['overview','Overview','الرئيسية'],['fees','Fees & Payments','الرسوم'],['attendance','Attendance','الحضور'],['results','Results & Progress','النتائج'],['notices','Announcements','الإعلانات']],
+  student:[['overview','Overview','الرئيسية'],['timetable','My Timetable','الجدول الدراسي'],['attendance','Attendance','الحضور'],['results','Results','النتائج'],['fees','Fees','الرسوم'],['notices','Announcements','الإعلانات']],
+  teacher:[['overview','Overview','الرئيسية'],['attendance','Take Attendance','تسجيل الحضور'],['students','My Students','طلابي'],['results','Assessments','التقييم'],['notices','Announcements','الإعلانات']],
+  admin:[['overview','Dashboard','لوحة الإدارة'],['admissions','Admissions','طلبات القبول'],['students','Student Management','إدارة الطلاب'],['staff','Staff & Teachers','الموظفون'],['attendance','Attendance','الحضور'],['fees','Fees & Payments','الرسوم'],['results','Results & Assessments','النتائج'],['notices','Notices & Announcements','الإعلانات'],['reports','Reports','التقارير'],['settings','System Settings','الإعدادات']]
 };
 const seed = {
   students:[
     {id:'AAZ-001',name:'Amina Sample',nameAr:'أمينة نموذج',className:'Primary 4',guardian:'Hauwa Sample',phone:'08000000001',status:'Active'},
     {id:'AAZ-002',name:'Yusuf Sample',nameAr:'يوسف نموذج',className:'Primary 5',guardian:'Ibrahim Sample',phone:'08000000002',status:'Active'},
-    {id:'AAZ-003',name:'Maryam Sample',nameAr:'مريم نموذج',className:'JSS 1',guardian:'Fatima Sample',phone:'08000000003',status:'Active'}
+    {id:'AAZ-003',name:'Maryam Sample',nameAr:'مريم نموذج',className:'JSS 1',guardian:'Fatima Sample',phone:'08000000003',status:'Active'},
+    {id:'AAZ-004',name:'Abdullahi Sample',nameAr:'عبد الله',className:'Nursery 2',guardian:'Musa Sample',phone:'08000000007',status:'Active'},
+    {id:'AAZ-005',name:'Zainab Sample',nameAr:'زينب',className:'Primary 1',guardian:'Bilkisu Sample',phone:'08000000008',status:'Active'},
+    {id:'AAZ-006',name:'Usman Sample',nameAr:'عثمان',className:'Primary 2',guardian:'Sani Sample',phone:'08000000009',status:'Active'},
+    {id:'AAZ-007',name:'Hafsat Sample',nameAr:'حفصة',className:'Primary 3',guardian:'Aliyu Sample',phone:'08000000010',status:'Active'},
+    {id:'AAZ-008',name:'Ibrahim Sample',nameAr:'إبراهيم',className:'JSS 2',guardian:'Abubakar Sample',phone:'08000000011',status:'Active'},
+    {id:'AAZ-009',name:'Aisha Sample',nameAr:'عائشة',className:'JSS 3',guardian:'Mariam Sample',phone:'08000000012',status:'Active'},
+    {id:'AAZ-010',name:'Bilal Sample',nameAr:'بلال',className:'SS 1',guardian:'Hassan Sample',phone:'08000000013',status:'Active'}
   ],
   fees:[
     {id:'PAY-1001',studentId:'AAZ-001',student:'Amina Sample',className:'Primary 4',term:'First Term 2026/2027',amount:45000,method:'Bank transfer',reference:'DEMO-TRX-001',date:'2026-10-15',status:'Verified',receipt:'Demo receipt'},
@@ -55,6 +62,7 @@ const seed = {
 };
 let data = loadData();
 let currentRole = null;
+let selectedStudentId = 'AAZ-001';
 let currentView = 'overview';
 let toastTimer;
 function loadData(){
@@ -67,14 +75,14 @@ function money(value){return '₦'+Number(value||0).toLocaleString('en-NG');}
 function today(){return new Date().toISOString().slice(0,10);}
 function toast(message){const box=$('#toast');box.textContent=message;box.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>box.classList.remove('show'),2600);}
 function enterRole(role){
-  currentRole=role;currentView='overview';
+  currentRole=role;currentView='overview';selectedStudentId='AAZ-001';
   $('#welcomeScreen').classList.add('hidden');$('#workspace').classList.remove('hidden');
   $('#sideRoleAr').textContent=roles[role].ar;$('#sideRoleEn').textContent=roles[role].en;
   $('#profileName').textContent=roles[role].name;$('#profileRole').textContent=roles[role].en;$('#profileInitial').textContent=roles[role].name.slice(0,1);
   renderNavigation();renderView();
 }
 function renderNavigation(){
-  $('#sideNav').innerHTML=navigation[currentRole].map(([id,ar,en])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'">'+ar+'<span>'+en+'</span></button>').join('');
+  $('#sideNav').innerHTML=navigation[currentRole].map(([id,en,ar])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'">'+en+'<span>'+ar+'</span></button>').join('');
 }
 function goView(view){currentView=view;renderNavigation();renderView();window.scrollTo({top:0,behavior:'smooth'});}
 function stat(label,value,note){return '<article class="stat-card"><small>'+label+'</small><strong>'+value+'</strong><em>'+note+'</em></article>';}
@@ -82,14 +90,14 @@ function table(headers,rows){return '<div class="table-wrap"><table><thead><tr>'
 function card(title,content){return '<section class="panel-card"><h3>'+title+'</h3>'+content+'</section>';}
 function banner(title,desc){return '<section class="welcome-banner"><h2>'+title+'</h2><p>'+desc+'</p></section>';}
 function renderView(){
-  const titles={overview:['لوحة التحكم','Dashboard'],admissions:['طلبات القبول','Admissions'],students:['إدارة الطلاب','Students'],staff:['الموظفون والمعلمون','Staff'],attendance:['الحضور والغياب','Attendance'],fees:['الرسوم والمدفوعات','Fees & Payments'],results:['النتائج والتقييم','Results & Assessments'],notices:['الإعلانات والتعاميم','Announcements'],reports:['التقارير والإحصائيات','Reports'],settings:['إعدادات النظام','System Settings'],timetable:['الجدول الدراسي','Timetable']};
+  const titles={overview:['Dashboard','لوحة التحكم'],admissions:['Admissions','طلبات القبول'],students:['Student Management','إدارة الطلاب'],staff:['Staff & Teachers','الموظفون'],attendance:['Attendance','الحضور'],fees:['Fees & Payments','الرسوم'],results:['Results & Assessments','النتائج'],notices:['Notices & Announcements','الإعلانات'],reports:['Reports & Statistics','التقارير'],settings:['System Settings','الإعدادات'],timetable:['My Timetable','الجدول الدراسي']};
   const [ar,en]=titles[currentView]||titles.overview;
-  $('#pageKicker').textContent=roles[currentRole].ar;$('#pageTitle').textContent=ar;$('#pageSubtitle').textContent=en+' · Al-Azhar Academy demonstration';
+  $('#pageKicker').textContent=roles[currentRole].en;$('#pageTitle').textContent=ar;$('#pageSubtitle').textContent=en+' · Al-Azhar Academy demonstration';
   const renderer={overview:overviewView,fees:feesView,attendance:attendanceView,results:resultsView,notices:noticesView,students:studentsView,staff:staffView,admissions:admissionsView,reports:reportsView,settings:settingsView,timetable:timetableView};
   $('#viewContent').innerHTML=(renderer[currentView]||overviewView)();
   bindViewActions();
 }
-function myStudent(){return data.students[0];}
+function myStudent(){return data.students.find(s=>s.id===selectedStudentId)||data.students[0];}
 function roleStudent(){return currentRole==='parent'||currentRole==='student'?myStudent():null;}
 function overviewView(){
   if(currentRole==='admin') return banner('مرحباً بك في إدارة الأكاديمية','مرحباً بكم في لوحة الإدارة · Welcome to the school management dashboard')+
@@ -100,7 +108,8 @@ function overviewView(){
     '<div class="stats-grid">'+stat('طلاب نموذجيون · Learners',data.students.length,'In sample classes')+stat('سجلات الحضور · Attendance',data.attendance.length,'Recorded entries')+stat('التقييمات · Assessments',data.results.length,'Sample marks')+stat('الإعلانات · Notices',data.notices.length,'School notices')+'</div>'+
     '<div class="panel-grid">'+card('فصلي · My class',table(['Student','Admission No.','Class'],data.students.map(s=>[escapeHTML(s.name),s.id,escapeHTML(s.className)])))+card('أدوات المعلم · Teacher tools','<div class="action-row"><button class="primary-btn" data-go="attendance">تسجيل الحضور · Take attendance</button><button class="soft-btn" data-go="results">إدخال الدرجات · Enter results</button><button class="soft-btn" data-go="students">عرض الطلاب · View students</button></div>')+'</div>';
   const s=roleStudent();
-  return banner(currentRole==='parent'?'مرحباً بكم في بوابة ولي الأمر':'مرحباً بك في بوابة الطالب','تابعوا التقدم الدراسي والحضور والرسوم · Track attendance, learning and school fees')+
+  return banner(currentRole==='parent'?'Parent / Guardian Dashboard':'Student Dashboard','Track academic progress, attendance, school fees and announcements · <span lang="ar" dir="rtl">متابعة الدراسة والحضور والرسوم</span>')+
+    card('Select a sample learner · اختر طالباً تجريبياً','<div class="field"><label>Student account / Admission number</label><select id="sampleStudentSelect">'+data.students.map(x=>'<option value="'+x.id+'" '+(x.id===s.id?'selected':'')+'>'+x.id+' — '+escapeHTML(x.name)+' ('+escapeHTML(x.className)+')</option>').join('')+'</select></div>')+
     '<div class="stats-grid">'+stat('الطالب · Learner',escapeHTML(s.name),'Admission: '+s.id)+stat('الفصل · Class',escapeHTML(s.className),'Current class')+stat('المدفوعات · Payments',data.fees.filter(f=>f.studentId===s.id).length,'Recorded payments')+stat('النتائج · Results',data.results.filter(r=>r.studentId===s.id).length,'Available assessments')+'</div>'+
     '<div class="panel-grid">'+card('بيانات الطالب · Learner profile','<p><b>'+escapeHTML(s.nameAr)+'</b><br>'+escapeHTML(s.name)+'<br>'+escapeHTML(s.className)+'<br>Guardian: '+escapeHTML(s.guardian)+'</p>')+card('روابط سريعة · Quick links','<div class="action-row"><button class="primary-btn" data-go="fees">عرض الرسوم · View fees</button><button class="soft-btn" data-go="attendance">الحضور · Attendance</button><button class="soft-btn" data-go="results">النتائج · Results</button></div>')+'</div>'+
     card('آخر الإعلانات · Latest notices',noticesList());
@@ -147,7 +156,8 @@ function reportsView(){const total=data.fees.reduce((sum,f)=>sum+Number(f.amount
 function settingsView(){return card('إعدادات النموذج التجريبي · Demo settings','<p>البيانات في هذا النموذج محفوظة محلياً في متصفحك فقط.</p><div class="action-row"><button class="soft-btn" data-export>تصدير نسخة · Export backup</button><button class="danger-btn" data-reset>إعادة بيانات العرض · Reset demo data</button></div><p>لا تستخدم إعادة الضبط إذا أردت الاحتفاظ بالتغييرات التي أجريتها على هذا المتصفح.</p>')+card('ملاحظات قبل التشغيل الفعلي · Production readiness','<p>يلزم إنشاء قاعدة بيانات وخادم، نظام دخول آمن، تشفير الاتصال، نسخ احتياطي، صلاحيات حسب الوظيفة، سجل تدقيق، وسياسة خصوصية وحماية بيانات الطلاب.</p>');}
 function timetableView(){return card('الجدول الدراسي · Weekly timetable',table(['Day','Time','Subject','Room'],data.timetable.map(t=>[t.day,t.time,escapeHTML(t.subject),escapeHTML(t.room)])));}
 function bindViewActions(){
-  $$('[data-go]').forEach(b=>b.addEventListener('click',()=>goView(b.dataset.go)));
+  const sampleSelect=$('#sampleStudentSelect');if(sampleSelect)sampleSelect.addEventListener('change',()=>{selectedStudentId=sampleSelect.value;renderView();});
+  $('[data-go]').forEach(b=>b.addEventListener('click',()=>goView(b.dataset.go)));
   const payment=$('#paymentForm');if(payment)payment.addEventListener('submit',e=>{e.preventDefault();const f=new FormData(payment);const s=data.students.find(x=>x.id===f.get('studentId'));data.fees.push({id:'PAY-'+Date.now(),studentId:s.id,student:s.name,className:s.className,term:f.get('term'),amount:Number(f.get('amount')),method:f.get('method'),reference:f.get('reference'),date:f.get('date'),status:f.get('status'),receipt:'File not uploaded'});saveData();toast('تم تسجيل الدفعة التجريبية · Demo payment recorded');renderView();});
   const attendance=$('#attendanceForm');if(attendance)attendance.addEventListener('submit',e=>{e.preventDefault();const f=new FormData(attendance),s=data.students.find(x=>x.id===f.get('studentId'));data.attendance.push({id:'ATT-'+Date.now(),date:f.get('date'),className:f.get('className'),studentId:s.id,student:s.name,status:f.get('status'),markedBy:roles[currentRole].name});saveData();toast('تم حفظ سجل الحضور · Attendance saved');renderView();});
   const result=$('#resultForm');if(result)result.addEventListener('submit',e=>{e.preventDefault();const f=new FormData(result),s=data.students.find(x=>x.id===f.get('studentId')),score=Number(f.get('score'));data.results.push({id:'RES-'+Date.now(),studentId:s.id,student:s.name,className:s.className,subject:f.get('subject'),term:f.get('term'),score,grade:score>=80?'A':score>=70?'B':score>=60?'C':score>=50?'D':'F'});saveData();toast('تم حفظ النتيجة · Result saved');renderView();});
