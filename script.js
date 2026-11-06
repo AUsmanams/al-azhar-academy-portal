@@ -59,53 +59,128 @@ document.getElementById('enquiryForm').addEventListener('submit', (event) => {
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-// Interactive portal tour: all records below are fictional demonstration data.
+// Interactive portal tour with fictional sample records only.
+const demoPaymentRecords = [
+  { admissionNo: 'AAZ-001', student: 'Amina Sample', className: 'Primary 4', amount: 45000, method: 'Bank transfer', reference: 'DEMO-TRX-001', date: '2026-10-15', status: 'Verified' }
+];
+
+// Keep the prototype role dashboards separate from real school accounts or records.
 const demoPortals = {
   parent: {
     title: 'Parent / Guardian Dashboard',
-    intro: 'A parent could review a child’s school information from one place.',
-    tiles: [['Attendance','View weekly attendance summary'],['Notices','Read school announcements'],['Fees','Review fee statements (demo only)'],['Progress','View academic and Qur’an learning updates']],
-    actions: ['View attendance','Read latest notice','Open fee statement']
+    intro: 'A parent can review a learner’s sample school information.',
+    tiles: [['Attendance','Weekly attendance summary'],['Notices','School announcements'],['Fee records','Verified payments and balances'],['Learning progress','Academic and Qur’an learning updates']]
   },
   student: {
-    title: 'Student Learning Dashboard',
-    intro: 'A learner could access class information and learning activities.',
-    tiles: [['Timetable','Today’s sample lesson schedule'],['Assignments','Tasks shared by teachers'],['Results','Term assessment preview'],['Qur’an learning','Memorisation and revision tracker']],
-    actions: ['Open timetable','View assignments','Check progress']
+    title: 'Student Dashboard',
+    intro: 'Sample learner workspace. Use the example admission number AAZ-001 to preview a payment record.',
+    tiles: [['Timetable','Today’s sample lesson schedule'],['Assignments','Tasks shared by teachers'],['Results','Term assessment preview'],['Qur’an learning','Memorisation and revision tracker']]
   },
   teacher: {
     title: 'Teacher / Staff Workspace',
-    intro: 'A staff workspace could support classroom and academic responsibilities.',
-    tiles: [['My classes','Assigned classes and subjects'],['Attendance','Record daily class attendance'],['Assessments','Enter marks and feedback'],['Lesson planning','Prepare lesson notes and resources']],
-    actions: ['Open class register','Prepare lesson note','View class list']
+    intro: 'A staff workspace for classroom and academic responsibilities.',
+    tiles: [['My classes','Assigned classes and subjects'],['Attendance','Daily class attendance'],['Assessments','Marks and feedback'],['Lesson planning','Lesson notes and resources']]
   },
   admin: {
     title: 'School Administration Dashboard',
-    intro: 'An administrative overview for authorised management personnel.',
-    tiles: [['Learners','Admissions and student profiles'],['Staff','Staff directory and roles'],['Finance','Fee collection and reports'],['Operations','Calendar, notices and school records']],
-    actions: ['Review admissions','Create announcement','View school report']
+    intro: 'Authorised staff can record a payment after confirming that the school received it.',
+    tiles: [['Learners','Admissions and student profiles'],['Staff','Staff directory and roles'],['Finance','Fee records and reports'],['Operations','Calendar, notices and school records']]
   }
 };
 
-// Render the selected role's sample dashboard without connecting to real school data.
+function renderPaymentHistory(admissionNo) {
+  const matches = demoPaymentRecords.filter((record) => record.admissionNo.toLowerCase() === admissionNo.toLowerCase());
+  if (!matches.length) return '<p>No matching demonstration payment record was found. Check the admission number.</p>';
+  return matches.map((record) => `
+    <div class="payment-record">
+      <div><strong>₦${Number(record.amount).toLocaleString('en-NG')}</strong><small>${record.date} · ${record.method}</small></div>
+      <div><b>${record.student}</b><small>${record.className} · Ref: ${record.reference}</small></div>
+      <span class="payment-status">${record.status}</span>
+    </div>
+  `).join('');
+}
+
+// Display the chosen role and provide role-specific sample actions.
 document.querySelectorAll('[data-role]').forEach((button) => {
   button.addEventListener('click', () => {
-    const data = demoPortals[button.dataset.role];
+    const role = button.dataset.role;
+    const data = demoPortals[role];
     if (!data || !portalDashboard) return;
     document.querySelectorAll('[data-role]').forEach((item) => item.classList.remove('active'));
     button.classList.add('active');
-    portalDashboard.innerHTML = `
-      <h3>${data.title}</h3>
-      <p>${data.intro}</p>
-      <div class="demo-tiles">${data.tiles.map(([title, detail]) => `<div><strong>${title}</strong><small>${detail}</small></div>`).join('')}</div>
-      <div class="demo-actions">${data.actions.map((action) => `<button class="demo-action" type="button">${action}</button>`).join('')}</div>
-      <p class="demo-action-feedback" role="status">Choose a sample action to see how this area could respond.</p>
-    `;
-    portalDashboard.querySelectorAll('.demo-action').forEach((action) => {
-      action.addEventListener('click', () => {
-        portalDashboard.querySelector('.demo-action-feedback').textContent =
-          action.textContent + ' — demonstration only. A production version would require authorised accounts and connected school records.';
+
+    const tiles = data.tiles.map(([title, detail]) =>
+      `<div><strong>${title}</strong><small>${detail}</small></div>`).join('');
+
+    if (role === 'admin') {
+      portalDashboard.innerHTML = `
+        <h3>${data.title}</h3><p>${data.intro}</p>
+        <div class="demo-tiles">${tiles}</div>
+        <h4 class="portal-subheading">Record a verified school-fee payment</h4>
+        <p class="portal-hint">Enter a fictional sample record below. In the real system, only authorised finance staff should submit a payment after checking the bank deposit, transfer or cash receipt.</p>
+        <form id="demoPaymentForm" class="demo-payment-form">
+          <label>Student admission number<input name="admissionNo" required placeholder="e.g. AAZ-001"></label>
+          <label>Student full name<input name="student" required placeholder="Student name"></label>
+          <label>Class<input name="className" required placeholder="e.g. Primary 4"></label>
+          <label>Amount received (₦)<input name="amount" type="number" min="1" required placeholder="45000"></label>
+          <label>Payment method<select name="method" required><option value="">Select method</option><option>Bank transfer</option><option>Bank deposit</option><option>Cash</option><option>Other approved method</option></select></label>
+          <label>Transaction / receipt reference<input name="reference" required placeholder="Bank reference or receipt number"></label>
+          <label>Date received<input name="date" type="date" required></label>
+          <label>Receipt evidence (optional)<input name="receipt" type="file" accept="image/*,.pdf"></label>
+          <button class="demo-action" type="submit">Add sample payment record</button>
+          <p class="demo-action-feedback" role="status">This prototype does not upload or store receipt files or send data to a server.</p>
+        </form>
+        <h4 class="portal-subheading">Recent sample payment records</h4>
+        <div id="adminPaymentList">${renderPaymentHistory('AAZ-001')}</div>
+      `;
+      document.getElementById('demoPaymentForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        const values = new FormData(form);
+        const record = {
+          admissionNo: String(values.get('admissionNo')).trim(),
+          student: String(values.get('student')).trim(),
+          className: String(values.get('className')).trim(),
+          amount: Number(values.get('amount')),
+          method: String(values.get('method')),
+          reference: String(values.get('reference')).trim(),
+          date: String(values.get('date')),
+          status: 'Verified (demo)'
+        };
+        if (!record.amount || record.amount < 1) return;
+        demoPaymentRecords.unshift(record);
+        document.getElementById('adminPaymentList').innerHTML = renderPaymentHistory(record.admissionNo);
+        form.querySelector('.demo-action-feedback').textContent =
+          'Sample record added for this browser session. It is not stored in a school database.';
+        form.reset();
       });
-    });
+      return;
+    }
+
+    if (role === 'student' || role === 'parent') {
+      portalDashboard.innerHTML = `
+        <h3>${data.title}</h3><p>${data.intro}</p>
+        <div class="demo-tiles">${tiles}</div>
+        <h4 class="portal-subheading">School-fee payment history</h4>
+        <form id="paymentLookupForm" class="demo-payment-form">
+          <label>Student admission number<input name="admissionNo" required value="AAZ-001" placeholder="Enter admission number"></label>
+          <button class="demo-action" type="submit">View payment records</button>
+        </form>
+        <div id="paymentLookupResults">${renderPaymentHistory('AAZ-001')}</div>
+        <p class="portal-hint">Sample data only. A production portal would show records belonging only to the authenticated learner and their authorised parent/guardian.</p>
+      `;
+      document.getElementById('paymentLookupForm').addEventListener('submit', (event) => {
+        event.preventDefault();
+        const admissionNo = new FormData(event.currentTarget).get('admissionNo').trim();
+        document.getElementById('paymentLookupResults').innerHTML = renderPaymentHistory(admissionNo);
+      });
+      return;
+    }
+
+    portalDashboard.innerHTML = `
+      <h3>${data.title}</h3><p>${data.intro}</p>
+      <div class="demo-tiles">${tiles}</div>
+      <p class="portal-hint">A production staff workspace would require individual accounts, assigned permissions and an audit trail.</p>
+    `;
   });
 });
