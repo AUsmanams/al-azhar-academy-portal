@@ -48,3 +48,9 @@
 .payment-record small{display:block;font-size:9px;color:var(--muted)}
 .payment-status{font-size:9px;color:#27633e;background:#e9f4e9;padding:5px 7px;white-space:nowrap}
 @media(max-width:520px){.demo-payment-form{grid-template-columns:1fr}.payment-record{grid-template-columns:1fr 1fr}.payment-status{grid-column:1/-1;justify-self:start}}
+
+
+/* Academy watermark and direct portal launch button. */
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background-image:url("school-logo.jpg");background-repeat:no-repeat;background-position:center;background-size:min(48vw,520px);opacity:.025;filter:grayscale(1)}
+.site-header,main,footer,.modal-backdrop{position:relative;z-index:1}
+.portal-launch{margin:0 0 14px;width:100%;text-align:center}
