@@ -5,9 +5,10 @@
 **Status:** Proposal for discussion; not an approved school policy or production specification.
 
 ## Language and presentation
-- Arabic is the dominant interface language (target roughly 60–70% of visible interface copy), reflecting the academy's Islamic and Arabic-learning identity.
+- English is the primary interface language (target at least 80% of visible interface copy), reflecting the user's requested presentation and ensuring clear access for all families.
+- Arabic is a supporting language (target around 20%), used selectively for the academy's Islamic identity, short translations, Qur'an and Islamic Studies content, and important Arabic learning labels.
 - English accompanies Arabic labels, instructions, forms, error messages, reports and learning content so all families can use the system.
-- Use Arabic-first labels with concise English translations immediately alongside or below them.
+- Use English-first labels with concise Arabic translations beneath or beside them where useful.
 - Arabic passages and controls use correct right-to-left direction; English values and reference numbers retain left-to-right direction. Avoid forcing mixed-language values into incorrect direction.
 
 ## Individual accounts and scale
