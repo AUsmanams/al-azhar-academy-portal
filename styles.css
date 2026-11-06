@@ -33,3 +33,18 @@
 .portal-dashboard .demo-action{margin:8px 8px 0 0;border:1px solid #b9d9bc;background:#fff;color:var(--green);padding:8px 10px;font:600 10px var(--sans);cursor:pointer}
 .portal-dashboard .demo-action:hover{background:#e5f0e4}
 @media(max-width:720px){.islamic-grid{grid-template-columns:1fr}.arabic-lead{font-size:19px}.portal-dashboard .demo-tiles{grid-template-columns:1fr 1fr}}
+
+
+/* Payment-record demonstration styles. */
+.portal-subheading{font:700 15px var(--serif);color:var(--green);margin:18px 0 8px}
+.portal-hint{font-size:10px!important;color:var(--muted);line-height:1.7;margin:10px 0}
+.demo-payment-form{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#fff;border:1px solid var(--line);padding:12px;margin:10px 0}
+.demo-payment-form label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:700;color:var(--green)}
+.demo-payment-form input,.demo-payment-form select{width:100%;min-width:0;padding:9px;border:1px solid var(--line);background:#fff;color:var(--ink);font:11px var(--sans)}
+.demo-payment-form button,.demo-payment-form .demo-action-feedback{grid-column:1/-1}
+.payment-record{display:grid;grid-template-columns:1fr 1.4fr auto;gap:10px;align-items:center;padding:11px;border:1px solid var(--line);background:#fff;margin:7px 0}
+.payment-record strong{display:block;color:var(--green);font-size:13px}
+.payment-record b{display:block;font-size:10px;color:var(--ink)}
+.payment-record small{display:block;font-size:9px;color:var(--muted)}
+.payment-status{font-size:9px;color:#27633e;background:#e9f4e9;padding:5px 7px;white-space:nowrap}
+@media(max-width:520px){.demo-payment-form{grid-template-columns:1fr}.payment-record{grid-template-columns:1fr 1fr}.payment-status{grid-column:1/-1;justify-self:start}}
