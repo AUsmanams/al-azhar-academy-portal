@@ -5,10 +5,10 @@ const STORE_KEY = 'alAzharPortalDemoV1';
 const $ = (selector, root=document) => root.querySelector(selector);
 const $$ = (selector, root=document) => [...root.querySelectorAll(selector)];
 const roles = {
-  parent:{ar:'بوابة ولي الأمر',en:'Parent / Guardian',name:'ولي أمر تجريبي'},
-  student:{ar:'بوابة الطالب',en:'Student Portal',name:'طالب تجريبي'},
-  teacher:{ar:'بوابة المعلم والموظف',en:'Teacher / Staff',name:'معلم تجريبي'},
-  admin:{ar:'لوحة إدارة المدرسة',en:'School Administration',name:'مدير تجريبي'}
+  parent:{ar:'ولي الأمر',en:'Parent / Guardian',name:'Demo Parent'},
+  student:{ar:'الطالب',en:'Student Portal',name:'Demo Student'},
+  teacher:{ar:'المعلم والموظف',en:'Teacher / Staff',name:'Demo Teacher'},
+  admin:{ar:'إدارة المدرسة',en:'School Management',name:'Demo Administrator'}
 };
 const navigation = {
   parent:[['overview','Overview','الرئيسية'],['fees','Fees & Payments','الرسوم'],['attendance','Attendance','الحضور'],['results','Results & Progress','النتائج'],['notices','Announcements','الإعلانات']],
@@ -77,12 +77,12 @@ function toast(message){const box=$('#toast');box.textContent=message;box.classL
 function enterRole(role){
   currentRole=role;currentView='overview';selectedStudentId='AAZ-001';
   $('#welcomeScreen').classList.add('hidden');$('#workspace').classList.remove('hidden');
-  $('#sideRoleAr').textContent=roles[role].ar;$('#sideRoleEn').textContent=roles[role].en;
+  $('#sideRoleAr').textContent=roles[role].en;$('#sideRoleEn').textContent=roles[role].ar;
   $('#profileName').textContent=roles[role].name;$('#profileRole').textContent=roles[role].en;$('#profileInitial').textContent=roles[role].name.slice(0,1);
   renderNavigation();renderView();
 }
 function renderNavigation(){
-  $('#sideNav').innerHTML=navigation[currentRole].map(([id,en,ar])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'">'+ar+'<span>'+en+'</span></button>').join('');
+  $('#sideNav').innerHTML=navigation[currentRole].map(([id,en,ar])=>'<button data-view="'+id+'" class="'+(id===currentView?'active':'')+'"'+en+'<span>'+ar+'</span></button>').join('');
 }
 function goView(view){currentView=view;renderNavigation();renderView();window.scrollTo({top:0,behavior:'smooth'});}
 function stat(label,value,note){return '<article class="stat-card"><small>'+label+'</small><strong>'+value+'</strong><em>'+note+'</em></article>';}
