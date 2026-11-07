@@ -6,20 +6,31 @@ const portalButton = document.getElementById('portalButton');
 const closePortal = document.getElementById('closePortal');
 const portalDashboard = document.getElementById('portalDashboard');
 
-// Mobile navigation opens and closes from the menu button.
-menuToggle.addEventListener('click', () => {
-  const isOpen = mainNav.classList.toggle('open');
-  menuToggle.setAttribute('aria-expanded', String(isOpen));
-  menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
-});
+// Mobile navigation: use a guarded click handler so the menu works on touchscreens.
+if (menuToggle && mainNav) {
+  menuToggle.type = 'button';
+  menuToggle.addEventListener('click', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    const isOpen = !mainNav.classList.contains('open');
+    mainNav.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    menuToggle.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
+    menuToggle.textContent = isOpen ? '✕' : '☰';
+  });
+}
 
 // Close mobile navigation after a visitor chooses a section.
-mainNav.querySelectorAll('a').forEach((link) => {
-  link.addEventListener('click', () => {
-    mainNav.classList.remove('open');
-    menuToggle.setAttribute('aria-expanded', 'false');
+if (mainNav && menuToggle) {
+  mainNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+      menuToggle.textContent = '☰';
+      menuToggle.setAttribute('aria-label', 'Open navigation');
+    });
   });
-});
+}
 
 // The portal is a visual concept only; it does not authenticate users.
 function openPortalPreview() {
