@@ -259,3 +259,17 @@ body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;back
   .site-header .main-nav .nav-ar { font-size: 11px !important; margin-left: 12px; }
   .site-header .main-nav .portal-button { display: block !important; align-self: stretch !important; margin-top: 10px !important; text-align: center !important; }
 }
+
+
+/* School leadership: reserved portrait spaces, ready for approved school photographs. */
+.leadership { background: #f3f7f0; }
+.leadership-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:22px; margin-top:42px; }
+.leader-card { background:#fff; border:1px solid var(--line); min-width:0; }
+.leader-photo { aspect-ratio:4/4.6; width:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:linear-gradient(145deg,#edf4eb,#f8faf6); border-bottom:1px solid var(--line); color:var(--green2); }
+.leader-photo-mark { width:64px; height:64px; display:grid; place-items:center; border:1px solid #b8d0bd; border-radius:50%; color:var(--green); font-family:Georgia,serif; font-size:20px; letter-spacing:.08em; }
+.leader-photo small { font-size:11px; color:#718078; }
+.leader-info { padding:18px 19px 20px; }
+.leader-info h3 { margin:0 0 7px; color:var(--green); font-size:17px; }
+.leader-info p { margin:0; color:var(--muted); font-size:12px; }
+@media(max-width:760px) { .leadership-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; margin-top:28px; } .leader-info { padding:14px; } .leader-info h3 { font-size:15px; } }
+@media(max-width:420px) { .leadership-grid { grid-template-columns:1fr 1fr; } .leader-photo { aspect-ratio:4/4.2; } }
