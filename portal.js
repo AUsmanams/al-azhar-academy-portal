@@ -8,7 +8,7 @@ const roles = {
   parent:{ar:'ولي الأمر',en:'Parent / Guardian',name:'Demo Parent'},
   student:{ar:'الطالب',en:'Student Portal',name:'Demo Student'},
   teacher:{ar:'المعلم والموظف',en:'Teacher / Staff',name:'Demo Teacher'},
-  admin:{ar:'إدارة المدرسة',en:'School Management',name:'Demo Administrator'}
+  admin:[['overview','Dashboard','لوحة الإدارة'],['admissions','Admissions','طلبات القبول'],['parttime','Part-time Students','طلاب الدراسة الجزئية'],['diploma','Diploma Students','طلاب الدبلوم'],['students','Student Management','إدارة الطلاب'],['staff','Staff & Teachers','الموظفون'],['attendance','Attendance','الحضور'],['fees','Fees & Payments','الرسوم'],['results','Results & Assessments','النتائج'],['notices','Notices & Announcements','الإعلانات'],['reports','Reports','التقارير'],['settings','System Settings','الإعدادات']],
 };
 const navigation = {
   parent:[['overview','Overview','الرئيسية'],['fees','Fees & Payments','الرسوم'],['attendance','Attendance','الحضور'],['results','Results & Progress','النتائج'],['notices','Announcements','الإعلانات']],
